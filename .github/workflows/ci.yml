@@ -231,7 +231,7 @@ jobs:
     #if: github.ref == 'refs/heads/main'
     runs-on: "ubuntu-20.04"
     needs:
-      - test-container-image
+      - build
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
