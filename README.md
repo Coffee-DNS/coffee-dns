@@ -5,4 +5,5 @@
 # Coffee DNS
 
 [![CI](https://github.com/Coffee-DNS/coffee-dns/actions/workflows/ci.yml/badge.svg)](https://github.com/Coffee-DNS/coffee-dns/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/coffee-dns/coffee-dns)](https://goreportcard.com/report/github.com/coffee-dns/coffee-dns)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
