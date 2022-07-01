@@ -198,6 +198,11 @@ jobs:
     runs-on: "ubuntu-20.04"
     needs:
       - setup-environment
+      - test
+      - vet
+      - lint
+      - check-fmt
+      - secure
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
@@ -221,6 +226,17 @@ jobs:
         with:
           path: /home/runner/go/bin
           key: tooling-${{ runner.os }}-${{ hashFiles('./internal/tools/go.mod') }}
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          version: '3.x'
+      - name: Install Protoc Gen Go
+        run: |
+          curl -OL https://github.com/protocolbuffers/protobuf-go/releases/download/v1.27.1/protoc-gen-go.v1.27.1.linux.amd64.tar.gz
+          tar -xvf protoc-gen-go.v1.27.1.linux.amd64.tar.gz
+          sudo mv protoc-gen-go /usr/bin/protoc-gen-go
+          curl -OL https://github.com/jsirianni/grpc-go/releases/download/v1.39.1-js/protoc-gen-go-grpc
+          sudo chmod +x protoc-gen-go-grpc && sudo mv protoc-gen-go-grpc /usr/bin/protoc-gen-go-grpc
       - name: Test GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
