@@ -1,4 +1,6 @@
-![Coffee DNS](https://avatars.githubusercontent.com/u/83888647?s=400&u=6af02aac5d231078d812b6da713fa4cfcba2f5d1&v=4)
+<p align="center">
+  <img width="300" height="300" src="https://avatars.githubusercontent.com/u/83888647?s=400&u=6af02aac5d231078d812b6da713fa4cfcba2f5d1&v=4">
+</p>
 
 # Coffee DNS
 
