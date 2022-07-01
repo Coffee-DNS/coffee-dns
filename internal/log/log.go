@@ -4,10 +4,12 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Logger is a logger used by Coffee DNS services
 type Logger struct {
 	*logrus.Logger
 }
 
+// NewJSONLogger returns a new structured logger
 func NewJSONLogger(level string) *Logger {
 	var l Logger
 	l.Logger = logrus.New()

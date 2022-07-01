@@ -13,10 +13,12 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+// NameServer is a Coffee DNS nameserver client
 type NameServer struct {
 	nameserver api.NameserverClient
 }
 
+// Status returns the status of the nameserver
 func (c NameServer) Status(ctx context.Context) error {
 	_, err := c.nameserver.Status(ctx, &api.NameserverHealthReq{})
 	if err != nil {
@@ -25,6 +27,7 @@ func (c NameServer) Status(ctx context.Context) error {
 	return nil
 }
 
+// CreateRecord creates a DNS record
 func (c NameServer) CreateRecord(ctx context.Context, rType, rKey, rValue string, ttl int32, force bool) (*api.NameserverCreateRecordResp, error) {
 	req := api.NameserverCreateRecordReq{
 		RecordType:  rType,
@@ -40,6 +43,7 @@ func (c NameServer) CreateRecord(ctx context.Context, rType, rKey, rValue string
 	return resp, nil
 }
 
+// GetRecord returns a DNS record
 func (c NameServer) GetRecord(ctx context.Context, key string) (*api.NameserverGetRecordResp, error) {
 	resp, err := c.nameserver.GetRecord(
 		ctx,
@@ -53,6 +57,7 @@ func (c NameServer) GetRecord(ctx context.Context, key string) (*api.NameserverG
 	return resp, nil
 }
 
+// DeleteRecord deletes a DNS record
 func (c NameServer) DeleteRecord(ctx context.Context, key string) error {
 	_, err := c.nameserver.DeleteRecord(
 		ctx,
@@ -63,9 +68,10 @@ func (c NameServer) DeleteRecord(ctx context.Context, key string) error {
 	return err
 }
 
-func New(endpoint string, enableTls bool) (NameServer, error) {
+// New returns a new Nameserver
+func New(endpoint string, enableTLS bool) (NameServer, error) {
 	secure := grpc.WithInsecure()
-	if enableTls {
+	if enableTLS {
 		h2creds := credentials.NewTLS(&tls.Config{
 			NextProtos: []string{"h2"},
 			MinVersion: tls.VersionTLS12,

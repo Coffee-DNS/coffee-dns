@@ -29,8 +29,8 @@ var rootCmd = &cobra.Command{
 	Short: "Manage your Coffee DNS Account",
 }
 
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
+func execute() {
+	if err := rootCmd.execute(); err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
@@ -48,5 +48,5 @@ func initConfig() {
 }
 
 func main() {
-	Execute()
+	execute()
 }

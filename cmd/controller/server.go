@@ -28,16 +28,16 @@ func init() {
 
 func startServer() error {
 	var (
-		grpcServer uint
+		grpcServer common.Port
 		err        error
 	)
 
-	grpcServer, err = common.GetPortFromEnv(common.ENV_GRPC_PORT)
+	grpcServer, err = common.GetPortFromEnv(common.EnvGRPCPort)
 	if err != nil {
 		return err
 	}
 
-	s, err := server.New(grpcServer, log.NewJSONLogger(os.Getenv(common.ENV_LOG_LEVEL)))
+	s, err := server.New(uint(grpcServer), log.NewJSONLogger(os.Getenv(common.EnvLogLevel)))
 	if err != nil {
 		return err
 	}

@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc"
 )
 
+// Controller is a Coffee DNS controlplane
 type Controller struct {
 	port struct {
 		grpc uint
@@ -22,6 +23,7 @@ type Controller struct {
 	api.UnimplementedControllerServer
 }
 
+// Start starts the controlplane
 func (c Controller) Start() error {
 	nameserverAddress := "nameserver:5555"
 	conn, err := client.New(nameserverAddress, false)
@@ -42,6 +44,7 @@ func (c Controller) Start() error {
 	return grpcServer.Serve(lis)
 }
 
+// New returns a new Coffee DNS Controller
 func New(grpcPort uint, logger *log.Logger) (Controller, error) {
 	var c Controller
 	c.port.grpc = grpcPort

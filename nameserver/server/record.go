@@ -9,6 +9,7 @@ import (
 	"github.com/coffee-dns/coffee-dns/nameserver/record"
 )
 
+// GetRecord responds to a DNS lookup
 func (s *Server) GetRecord(ctx context.Context, req *api.NameserverGetRecordReq) (*api.NameserverGetRecordResp, error) {
 	s.Logger.Infof(
 		"get record request from %s: %s",
@@ -34,6 +35,7 @@ func (s *Server) GetRecord(ctx context.Context, req *api.NameserverGetRecordReq)
 	}, nil
 }
 
+// CreateRecord creates a DNS record
 func (s *Server) CreateRecord(ctx context.Context, req *api.NameserverCreateRecordReq) (*api.NameserverCreateRecordResp, error) {
 	s.Logger.Infof(
 		"create record request from %s: %s %s %s %d",
@@ -64,6 +66,7 @@ func (s *Server) CreateRecord(ctx context.Context, req *api.NameserverCreateReco
 	return &api.NameserverCreateRecordResp{}, nil
 }
 
+// DeleteRecord deletes a DNS record
 func (s *Server) DeleteRecord(ctx context.Context, req *api.NameserverDeleteRecordReq) (*api.NameserverDeleteRecordResp, error) {
 	s.Logger.Infof(
 		"delete record request from %s: %s",

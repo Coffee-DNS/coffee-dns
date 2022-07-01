@@ -11,20 +11,21 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-func ListNodes() ([]v1.Node, error) {
+// Nodes returns a list of kubernetes nodes
+func Nodes() ([]v1.Node, error) {
 	clientset, err := getClient("")
 	if err != nil {
 		return nil, err
 	}
 
-	nodes, err := listNodes(clientset)
+	nodes, err := nodes(clientset)
 	if err != nil {
 		return nil, err
 	}
 	return nodes, nil
 }
 
-func listNodes(clientset kubernetes.Interface) ([]v1.Node, error) {
+func nodes(clientset kubernetes.Interface) ([]v1.Node, error) {
 	nodes, err := clientset.CoreV1().Nodes().List(context.TODO(), metav1.ListOptions{})
 
 	if err != nil {

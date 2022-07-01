@@ -13,6 +13,7 @@ import (
 	"github.com/miekg/dns"
 )
 
+// Server is a Coffee DNS nameserver
 type Server struct {
 	*dns.Server
 	APIConf      APIConfig
@@ -23,18 +24,21 @@ type Server struct {
 	api.UnimplementedNameserverServer
 }
 
+// APIConfig is an API configuration for a Coffee DNS Server
 type APIConfig struct {
 	Address       string
 	Port          int
 	listenAddress string
 }
 
+// ResolverConfig is a resolver configuration for a Coffee DNS Server
 type ResolverConfig struct {
 	Address       string
 	Port          int
 	listenAddress string
 }
 
+// Start starts the nameserver
 func (s *Server) Start() error {
 	go s.startResolver()
 	return s.startAPI()

@@ -4,6 +4,7 @@ import (
 	"github.com/coffee-dns/coffee-dns/nameserver/record"
 )
 
+// Persist provides persistent storage
 type Persist interface {
 	// Initialize the namespace
 	Init() error

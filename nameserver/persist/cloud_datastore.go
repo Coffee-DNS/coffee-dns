@@ -9,6 +9,7 @@ import (
 	"cloud.google.com/go/datastore"
 )
 
+// Datastore uses Google Cloud Datastore to persist dns records
 type Datastore struct {
 	// The Google Cloud project hosting the datastore
 	ProjectID string

@@ -8,7 +8,8 @@ import (
 	"github.com/coffee-dns/coffee-dns/controller/api"
 )
 
-func (c Controller) Status(ctx context.Context, req *api.ControllerHealthReq) (*api.ControllerHealthResp, error) {
+// Status returns the status of the controller
+func (c Controller) Status(ctx context.Context, _ *api.ControllerHealthReq) (*api.ControllerHealthResp, error) {
 	c.log.Trace("healthcheck from ", reqAddress(ctx))
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)

@@ -1,5 +1,6 @@
 package record
 
+// Record is a DNS record
 type Record struct {
 	// The hostname of the DNS record
 	Hostname string

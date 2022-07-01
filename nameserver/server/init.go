@@ -7,6 +7,7 @@ import (
 	"github.com/miekg/dns"
 )
 
+// Init initializes the nameserver
 func (s *Server) Init() error {
 	if err := s.initAPI(); err != nil {
 		return fmt.Errorf("failed to init grpc interface: %s", err)

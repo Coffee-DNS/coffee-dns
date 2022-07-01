@@ -13,10 +13,12 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+// Controller is a Coffee DNS controlplane client
 type Controller struct {
 	controller api.ControllerClient
 }
 
+// Status returns the controller's status
 func (c Controller) Status() error {
 	_, err := c.controller.Status(context.Background(), &api.ControllerHealthReq{})
 	if err != nil {
@@ -25,6 +27,7 @@ func (c Controller) Status() error {
 	return nil
 }
 
+// CreateRecord creates a DNS record
 func (c Controller) CreateRecord(rType, rKey, rValue string, ttl int32, force bool) (string, error) {
 	req := api.ControllerCreateRecordReq{
 		RecordType:  rType,
@@ -40,6 +43,7 @@ func (c Controller) CreateRecord(rType, rKey, rValue string, ttl int32, force bo
 	return resp.RecordUpdateURI, nil
 }
 
+// GetRecord returns a DNS record for the given key
 func (c Controller) GetRecord(key string) (string, error) {
 	resp, err := c.controller.GetRecord(
 		context.Background(),
@@ -53,6 +57,7 @@ func (c Controller) GetRecord(key string) (string, error) {
 	return resp.RecordValue, nil
 }
 
+// DeleteRecord deletes a dns record for the given key
 func (c Controller) DeleteRecord(key string) error {
 	_, err := c.controller.DeleteRecord(
 		context.Background(),
@@ -63,9 +68,10 @@ func (c Controller) DeleteRecord(key string) error {
 	return err
 }
 
-func New(endpoint string, enableTls bool) (Controller, error) {
+// New returns a new Controller
+func New(endpoint string, enableTLS bool) (Controller, error) {
 	secure := grpc.WithInsecure()
-	if enableTls {
+	if enableTLS {
 		h2creds := credentials.NewTLS(&tls.Config{
 			NextProtos: []string{"h2"},
 			MinVersion: tls.VersionTLS12,

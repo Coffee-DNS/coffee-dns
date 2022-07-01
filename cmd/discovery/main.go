@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/coffee-dns/coffee-dns/discovery/node"
-
 	"github.com/coffee-dns/coffee-dns/internal/log"
 	"github.com/gin-gonic/gin"
 )
@@ -16,7 +15,7 @@ var logLevel = "info"
 
 const logLevelEnv = "COFFEE_LOG_LEVEL"
 
-type Server struct {
+type server struct {
 	Address           string
 	Port              int
 	DetectionInterval int
@@ -24,11 +23,11 @@ type Server struct {
 
 	lock sync.Mutex
 
-	nodes []Node
+	nodes []k8snode
 }
 
 // https://github.com/yyyar/gobetween/wiki/Discovery#json
-type Node struct {
+type k8snode struct {
 	Host     string `json:"host,omitempty"`
 	Port     string `json:"port,omitempty"`
 	Weight   int    `json:"weight,omitempty"`
@@ -44,7 +43,7 @@ func init() {
 }
 
 func main() {
-	s := Server{
+	s := server{
 		Address:           "0.0.0.0",
 		Port:              8080,
 		DetectionInterval: 60, // seconds
@@ -57,7 +56,7 @@ func main() {
 	s.server()
 }
 
-func (s *Server) server() {
+func (s *server) server() {
 	addr := s.ListenAddress()
 	s.Logger.Info("starting http server on %s", addr)
 	router := gin.Default()
@@ -70,7 +69,7 @@ func (s *Server) server() {
 	s.Logger.Infof("server stopped")
 }
 
-func (s *Server) detect() {
+func (s *server) detect() {
 	s.Logger.Infof("starting node detection service with interval %d", s.DetectionInterval)
 
 	port := "30053"
@@ -82,7 +81,7 @@ func (s *Server) detect() {
 
 		s.Logger.Infof("aquired lock, beginning node detection")
 
-		nodes, err := node.ListNodes()
+		nodes, err := node.Nodes()
 		if err != nil {
 			s.Logger.Errorf("failed to list nodes: %s", err)
 			s.lock.Unlock()
@@ -90,7 +89,7 @@ func (s *Server) detect() {
 		}
 
 		// Reset the node list
-		s.nodes = []Node{}
+		s.nodes = []k8snode{}
 
 		for _, n := range nodes {
 			if n.Spec.Unschedulable {
@@ -104,7 +103,7 @@ func (s *Server) detect() {
 					continue
 				}
 
-				node := Node{
+				node := k8snode{
 					Host:     address.Address,
 					Port:     port,
 					Weight:   weight,
@@ -123,12 +122,12 @@ func (s *Server) detect() {
 	}
 }
 
-func (s *Server) Nodes() []Node {
+func (s *server) Nodes() []k8snode {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	return s.nodes
 }
 
-func (s *Server) ListenAddress() string {
+func (s *server) ListenAddress() string {
 	return fmt.Sprintf("%s:%d", s.Address, s.Port)
 }

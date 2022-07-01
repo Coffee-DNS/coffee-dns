@@ -8,6 +8,7 @@ import (
 	"github.com/coffee-dns/coffee-dns/controller/api"
 )
 
+// GetRecord returns a DNS record
 func (c Controller) GetRecord(ctx context.Context, req *api.ControllerGetRecordReq) (*api.ControllerGetRecordResp, error) {
 	c.log.Infof("get record request from %s: %s", reqAddress(ctx), req.RecordKey)
 
@@ -25,6 +26,7 @@ func (c Controller) GetRecord(ctx context.Context, req *api.ControllerGetRecordR
 	}, nil
 }
 
+// CreateRecord creates a DNS record
 func (c Controller) CreateRecord(ctx context.Context, req *api.ControllerCreateRecordReq) (*api.ControllerCreateRecordResp, error) {
 	c.log.Infof("create record request from %s: %s %s %s %d", reqAddress(ctx), req.RecordType, req.RecordKey, req.RecordValue, req.RecordTTL)
 
@@ -49,6 +51,7 @@ func (c Controller) CreateRecord(ctx context.Context, req *api.ControllerCreateR
 	return &x, nil
 }
 
+// DeleteRecord deletes a DNS record
 func (c Controller) DeleteRecord(ctx context.Context, req *api.ControllerDeleteRecordReq) (*api.ControllerDeleteRecordResp, error) {
 	c.log.Infof("delete record request from %s: %s", reqAddress(ctx), req.RecordKey)
 
