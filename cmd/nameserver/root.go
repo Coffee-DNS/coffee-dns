@@ -28,7 +28,7 @@ var rootCmd = &cobra.Command{
 var logger *log.Logger
 
 func execute() {
-	if err := rootCmd.execute(); err != nil {
+	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}

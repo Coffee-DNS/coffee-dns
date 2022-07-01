@@ -72,10 +72,6 @@ misspell:
 misspell-fix:
 	misspell -w $(ALLDOC)
 
-.PHONY: check-fmt
-check-fmt:
-	goimports -d ./ | diff -u /dev/null -
-
 .PHONY: lint
 lint:
 	revive -config .revive.toml -formatter friendly ./...

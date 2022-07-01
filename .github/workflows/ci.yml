@@ -123,30 +123,6 @@ jobs:
       - name: Lint
         run: make lint
 
-  check-fmt:
-    runs-on: "ubuntu-20.04"
-    needs:
-      - setup-environment
-    steps:
-      - name: Check out source code
-        uses: actions/checkout@v3
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.18
-      - name: Setup Go Environment
-        run: |
-          echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
-          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-      - name: Cache Tools
-        id: tool-cache
-        uses: actions/cache@v3
-        with:
-          path: /home/runner/go/bin
-          key: tooling-${{ runner.os }}-${{ hashFiles('./internal/tools/go.mod') }}
-      - name: Check Format
-        run: make check-fmt
-
   misspell:
     runs-on: "ubuntu-20.04"
     needs:
@@ -201,7 +177,6 @@ jobs:
       - test
       - vet
       - lint
-      - check-fmt
       - secure
     steps:
       - name: Check out source code
