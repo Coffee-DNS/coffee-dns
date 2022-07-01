@@ -86,7 +86,7 @@ func (s *server) detect() {
 	for {
 		s.lock.Lock()
 
-		s.Logger.Infof("aquired lock, beginning node detection")
+		s.Logger.Infof("acquired lock, beginning node detection")
 
 		nodes, err := node.Nodes()
 		if err != nil {
