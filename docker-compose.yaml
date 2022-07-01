@@ -2,7 +2,7 @@
 version: '3'
 services:
   controller:
-    image: ghcr.io/coffeedns/controller-amd64:latest
+    image: ghcr.io/coffee-dns/controller-amd64:latest
     restart: always
     ports:
       - 9000:9000
@@ -10,7 +10,7 @@ services:
       - COFFEE_GRPC_PORT=9000
       - COFFEE_LOG_LEVEL=trace
   nameserver:
-    image: ghcr.io/coffeedns/nameserver-amd64:latest
+    image: ghcr.io/coffee-dns/nameserver-amd64:latest
     restart: always
     ports:
       - "5053:5053/udp" # resolver

@@ -47,11 +47,11 @@ dockers:
   ids:
   - controller
   image_templates:
-  - "ghcr.io/coffeedns/controller-amd64:latest"
-  - "ghcr.io/coffeedns/controller-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-  - "ghcr.io/coffeedns/controller-amd64:{{ .Major }}.{{ .Minor }}"
-  - "ghcr.io/coffeedns/controller-amd64:{{ .Major }}"
-  - "ghcr.io/coffeedns/controller-amd64:{{ .ShortCommit }}"
+  - "ghcr.io/coffee-dns/controller-amd64:latest"
+  - "ghcr.io/coffee-dns/controller-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - "ghcr.io/coffee-dns/controller-amd64:{{ .Major }}.{{ .Minor }}"
+  - "ghcr.io/coffee-dns/controller-amd64:{{ .Major }}"
+  - "ghcr.io/coffee-dns/controller-amd64:{{ .ShortCommit }}"
   use: buildx
   build_flag_templates:
   - "--label=created={{.Date}}"
@@ -65,11 +65,11 @@ dockers:
   ids:
   - controller
   image_templates:
-  - "ghcr.io/coffeedns/controller-arm64:latest"
-  - "ghcr.io/coffeedns/controller-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-  - "ghcr.io/coffeedns/controller-arm64:{{ .Major }}.{{ .Minor }}"
-  - "ghcr.io/coffeedns/controller-arm64:{{ .Major }}"
-  - "ghcr.io/coffeedns/controller-arm64:{{ .ShortCommit }}"
+  - "ghcr.io/coffee-dns/controller-arm64:latest"
+  - "ghcr.io/coffee-dns/controller-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - "ghcr.io/coffee-dns/controller-arm64:{{ .Major }}.{{ .Minor }}"
+  - "ghcr.io/coffee-dns/controller-arm64:{{ .Major }}"
+  - "ghcr.io/coffee-dns/controller-arm64:{{ .ShortCommit }}"
   use: buildx
   build_flag_templates:
   - "--label=created={{.Date}}"
@@ -83,11 +83,11 @@ dockers:
   ids:
   - discovery
   image_templates:
-  - "ghcr.io/coffeedns/discovery-amd64:latest"
-  - "ghcr.io/coffeedns/discovery-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-  - "ghcr.io/coffeedns/discovery-amd64:{{ .Major }}.{{ .Minor }}"
-  - "ghcr.io/coffeedns/discovery-amd64:{{ .Major }}"
-  - "ghcr.io/coffeedns/discovery-amd64:{{ .ShortCommit }}"
+  - "ghcr.io/coffee-dns/discovery-amd64:latest"
+  - "ghcr.io/coffee-dns/discovery-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - "ghcr.io/coffee-dns/discovery-amd64:{{ .Major }}.{{ .Minor }}"
+  - "ghcr.io/coffee-dns/discovery-amd64:{{ .Major }}"
+  - "ghcr.io/coffee-dns/discovery-amd64:{{ .ShortCommit }}"
   use: buildx
   build_flag_templates:
   - "--label=created={{.Date}}"
@@ -101,11 +101,11 @@ dockers:
   ids:
   - discovery
   image_templates:
-  - "ghcr.io/coffeedns/discovery-arm64:latest"
-  - "ghcr.io/coffeedns/discovery-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-  - "ghcr.io/coffeedns/discovery-arm64:{{ .Major }}.{{ .Minor }}"
-  - "ghcr.io/coffeedns/discovery-arm64:{{ .Major }}"
-  - "ghcr.io/coffeedns/discovery-arm64:{{ .ShortCommit }}"
+  - "ghcr.io/coffee-dns/discovery-arm64:latest"
+  - "ghcr.io/coffee-dns/discovery-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - "ghcr.io/coffee-dns/discovery-arm64:{{ .Major }}.{{ .Minor }}"
+  - "ghcr.io/coffee-dns/discovery-arm64:{{ .Major }}"
+  - "ghcr.io/coffee-dns/discovery-arm64:{{ .ShortCommit }}"
   use: buildx
   build_flag_templates:
   - "--label=created={{.Date}}"
@@ -119,11 +119,11 @@ dockers:
   ids:
   - nameserver
   image_templates:
-  - "ghcr.io/coffeedns/nameserver-amd64:latest"
-  - "ghcr.io/coffeedns/nameserver-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-  - "ghcr.io/coffeedns/nameserver-amd64:{{ .Major }}.{{ .Minor }}"
-  - "ghcr.io/coffeedns/nameserver-amd64:{{ .Major }}"
-  - "ghcr.io/coffeedns/nameserver-amd64:{{ .ShortCommit }}"
+  - "ghcr.io/coffee-dns/nameserver-amd64:latest"
+  - "ghcr.io/coffee-dns/nameserver-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - "ghcr.io/coffee-dns/nameserver-amd64:{{ .Major }}.{{ .Minor }}"
+  - "ghcr.io/coffee-dns/nameserver-amd64:{{ .Major }}"
+  - "ghcr.io/coffee-dns/nameserver-amd64:{{ .ShortCommit }}"
   use: buildx
   build_flag_templates:
   - "--label=created={{.Date}}"
@@ -137,11 +137,11 @@ dockers:
   ids:
   - nameserver
   image_templates:
-  - "ghcr.io/coffeedns/nameserver-arm64:latest"
-  - "ghcr.io/coffeedns/nameserver-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-  - "ghcr.io/coffeedns/nameserver-arm64:{{ .Major }}.{{ .Minor }}"
-  - "ghcr.io/coffeedns/nameserver-arm64:{{ .Major }}"
-  - "ghcr.io/coffeedns/nameserver-arm64:{{ .ShortCommit }}"
+  - "ghcr.io/coffee-dns/nameserver-arm64:latest"
+  - "ghcr.io/coffee-dns/nameserver-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - "ghcr.io/coffee-dns/nameserver-arm64:{{ .Major }}.{{ .Minor }}"
+  - "ghcr.io/coffee-dns/nameserver-arm64:{{ .Major }}"
+  - "ghcr.io/coffee-dns/nameserver-arm64:{{ .ShortCommit }}"
   use: buildx
   build_flag_templates:
   - "--label=created={{.Date}}"
@@ -151,78 +151,78 @@ dockers:
   - "--platform=linux/arm64"
 
 docker_manifests:
-  - name_template: "ghcr.io/coffeedns/controller:latest"
+  - name_template: "ghcr.io/coffee-dns/controller:latest"
     image_templates:
-      - "ghcr.io/coffeedns/controller-amd64:latest"
-      - "ghcr.io/coffeedns/controller-arm64:latest"
+      - "ghcr.io/coffee-dns/controller-amd64:latest"
+      - "ghcr.io/coffee-dns/controller-arm64:latest"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/controller:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - name_template: "ghcr.io/coffee-dns/controller:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     image_templates:
-      - "ghcr.io/coffeedns/controller-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-      - "ghcr.io/coffeedns/controller-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ghcr.io/coffee-dns/controller-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ghcr.io/coffee-dns/controller-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/controller:{{ .Major }}.{{ .Minor }}"
+  - name_template: "ghcr.io/coffee-dns/controller:{{ .Major }}.{{ .Minor }}"
     image_templates:
-      - "ghcr.io/coffeedns/controller-amd64:{{ .Major }}.{{ .Minor }}"
-      - "ghcr.io/coffeedns/controller-arm64:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/coffee-dns/controller-amd64:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/coffee-dns/controller-arm64:{{ .Major }}.{{ .Minor }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/controller:{{ .Major }}"
+  - name_template: "ghcr.io/coffee-dns/controller:{{ .Major }}"
     image_templates:
-      - "ghcr.io/coffeedns/controller-amd64:{{ .Major }}"
-      - "ghcr.io/coffeedns/controller-arm64:{{ .Major }}"
+      - "ghcr.io/coffee-dns/controller-amd64:{{ .Major }}"
+      - "ghcr.io/coffee-dns/controller-arm64:{{ .Major }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/controller:{{ .ShortCommit }}"
+  - name_template: "ghcr.io/coffee-dns/controller:{{ .ShortCommit }}"
     image_templates:
-      - "ghcr.io/coffeedns/controller-amd64:{{ .ShortCommit }}"
-      - "ghcr.io/coffeedns/controller-arm64:{{ .ShortCommit }}"
-  - name_template: "ghcr.io/coffeedns/discovery:latest"
+      - "ghcr.io/coffee-dns/controller-amd64:{{ .ShortCommit }}"
+      - "ghcr.io/coffee-dns/controller-arm64:{{ .ShortCommit }}"
+  - name_template: "ghcr.io/coffee-dns/discovery:latest"
     image_templates:
-      - "ghcr.io/coffeedns/discovery-amd64:latest"
-      - "ghcr.io/coffeedns/discovery-arm64:latest"
+      - "ghcr.io/coffee-dns/discovery-amd64:latest"
+      - "ghcr.io/coffee-dns/discovery-arm64:latest"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/discovery:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - name_template: "ghcr.io/coffee-dns/discovery:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     image_templates:
-      - "ghcr.io/coffeedns/discovery-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-      - "ghcr.io/coffeedns/discovery-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ghcr.io/coffee-dns/discovery-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ghcr.io/coffee-dns/discovery-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/discovery:{{ .Major }}.{{ .Minor }}"
+  - name_template: "ghcr.io/coffee-dns/discovery:{{ .Major }}.{{ .Minor }}"
     image_templates:
-      - "ghcr.io/coffeedns/discovery-amd64:{{ .Major }}.{{ .Minor }}"
-      - "ghcr.io/coffeedns/discovery-arm64:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/coffee-dns/discovery-amd64:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/coffee-dns/discovery-arm64:{{ .Major }}.{{ .Minor }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/discovery:{{ .Major }}"
+  - name_template: "ghcr.io/coffee-dns/discovery:{{ .Major }}"
     image_templates:
-      - "ghcr.io/coffeedns/discovery-amd64:{{ .Major }}"
-      - "ghcr.io/coffeedns/discovery-arm64:{{ .Major }}"
+      - "ghcr.io/coffee-dns/discovery-amd64:{{ .Major }}"
+      - "ghcr.io/coffee-dns/discovery-arm64:{{ .Major }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/discovery:{{ .ShortCommit }}"
+  - name_template: "ghcr.io/coffee-dns/discovery:{{ .ShortCommit }}"
     image_templates:
-      - "ghcr.io/coffeedns/discovery-amd64:{{ .ShortCommit }}"
-      - "ghcr.io/coffeedns/discovery-arm64:{{ .ShortCommit }}"
-  - name_template: "ghcr.io/coffeedns/nameserver:latest"
+      - "ghcr.io/coffee-dns/discovery-amd64:{{ .ShortCommit }}"
+      - "ghcr.io/coffee-dns/discovery-arm64:{{ .ShortCommit }}"
+  - name_template: "ghcr.io/coffee-dns/nameserver:latest"
     image_templates:
-      - "ghcr.io/coffeedns/nameserver-amd64:latest"
-      - "ghcr.io/coffeedns/nameserver-arm64:latest"
+      - "ghcr.io/coffee-dns/nameserver-amd64:latest"
+      - "ghcr.io/coffee-dns/nameserver-arm64:latest"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/nameserver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+  - name_template: "ghcr.io/coffee-dns/nameserver:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     image_templates:
-      - "ghcr.io/coffeedns/nameserver-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
-      - "ghcr.io/coffeedns/nameserver-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ghcr.io/coffee-dns/nameserver-amd64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ghcr.io/coffee-dns/nameserver-arm64:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/nameserver:{{ .Major }}.{{ .Minor }}"
+  - name_template: "ghcr.io/coffee-dns/nameserver:{{ .Major }}.{{ .Minor }}"
     image_templates:
-      - "ghcr.io/coffeedns/nameserver-amd64:{{ .Major }}.{{ .Minor }}"
-      - "ghcr.io/coffeedns/nameserver-arm64:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/coffee-dns/nameserver-amd64:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/coffee-dns/nameserver-arm64:{{ .Major }}.{{ .Minor }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/nameserver:{{ .Major }}"
+  - name_template: "ghcr.io/coffee-dns/nameserver:{{ .Major }}"
     image_templates:
-      - "ghcr.io/coffeedns/nameserver-amd64:{{ .Major }}"
-      - "ghcr.io/coffeedns/nameserver-arm64:{{ .Major }}"
+      - "ghcr.io/coffee-dns/nameserver-amd64:{{ .Major }}"
+      - "ghcr.io/coffee-dns/nameserver-arm64:{{ .Major }}"
     skip_push: false
-  - name_template: "ghcr.io/coffeedns/nameserver:{{ .ShortCommit }}"
+  - name_template: "ghcr.io/coffee-dns/nameserver:{{ .ShortCommit }}"
     image_templates:
-      - "ghcr.io/coffeedns/nameserver-amd64:{{ .ShortCommit }}"
-      - "ghcr.io/coffeedns/nameserver-arm64:{{ .ShortCommit }}"
+      - "ghcr.io/coffee-dns/nameserver-amd64:{{ .ShortCommit }}"
+      - "ghcr.io/coffee-dns/nameserver-arm64:{{ .ShortCommit }}"
 
 changelog:
   skip: false
