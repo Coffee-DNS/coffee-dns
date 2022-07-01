@@ -70,6 +70,7 @@ func (c NameServer) DeleteRecord(ctx context.Context, key string) error {
 
 // New returns a new Nameserver
 func New(endpoint string, enableTLS bool) (NameServer, error) {
+	//lint:ignore SA1019 https://github.com/Coffee-DNS/coffee-dns/issues/2
 	secure := grpc.WithInsecure()
 	if enableTLS {
 		h2creds := credentials.NewTLS(&tls.Config{
