@@ -49,12 +49,6 @@ jobs:
     runs-on: "ubuntu-20.04"
     needs:
       - setup-environment
-    strategy:
-      matrix:
-        goos:
-          - darwin
-          - linux
-          - windows
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
@@ -73,7 +67,7 @@ jobs:
           path: /home/runner/go/pkg/mod
           key: go-pkg-mod-${{ runner.os }}-${{ hashFiles('**/go.mod', '**/go.sum') }}
       - name: Vet
-        run: GOOS=${{ matrix.goos }} go vet ./...
+        run: go vet ./...
 
   secure:
     runs-on: "ubuntu-20.04"
