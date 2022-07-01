@@ -79,3 +79,7 @@ check-fmt:
 .PHONY: lint
 lint:
 	revive -config .revive.toml -formatter friendly ./...
+
+.PHONY: gosec
+gosec:
+	gosec ./...
