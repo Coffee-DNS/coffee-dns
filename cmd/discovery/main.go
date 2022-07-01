@@ -43,6 +43,13 @@ func init() {
 }
 
 func main() {
+	args := os.Args
+
+	if len(args) != 2 || args[1] != "server" {
+		fmt.Println("expected one argument 'server'")
+		os.Exit(1)
+	}
+
 	s := server{
 		Address:           "0.0.0.0",
 		Port:              8080,
