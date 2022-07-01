@@ -17,7 +17,7 @@ quick:
 	cd cmd/controller && go build -o coffee
 
 .PHONY: test
-test: vet
+test:
 	go test ./...
 
 .PHONY: vet
