@@ -246,12 +246,66 @@ jobs:
           args: release --skip-publish --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_GITHUB_TOKEN }}
+      - name: Upload Controller Binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ env.GITHUB_SHA }}
+          path: dist/controller_**/app
+          retention-days: 1
+      - name: Upload Discovery Binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ env.GITHUB_SHA }}
+          path: dist/discovery_**/app
+          retention-days: 1
+      - name: Upload Nameserver Binaries
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ env.GITHUB_SHA }}
+          path: dist/nameserver_**/app
+          retention-days: 1
+
+  scan-go-licenses:
+    runs-on: "ubuntu-20.04"
+    needs:
+      - build
+    strategy:
+      matrix:
+        service:
+          - controller
+          - discovery
+          - nameserver
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+      - name: Setup Go Environment
+        run: |
+          echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+      - name: Cache Tools
+        id: tool-cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/go/bin
+          key: tooling-${{ runner.os }}-${{ hashFiles('./internal/tools/go.mod') }}
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.service }}-${{ env.GITHUB_SHA }}
+          path: dist/
+      - name: Scan Binaries
+        run: |
+          find dist/*/app | xargs -I{} chmod +x {}
+          lichen --config=./license.yaml $(find dist/*/app | xargs)
 
   push-container-image:
     if: github.ref == 'refs/heads/main'
     runs-on: "ubuntu-20.04"
     needs:
-      - build
+      - scan-go-licenses
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
