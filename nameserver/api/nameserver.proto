@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option go_package = "github.com/coffee-dns/nameserver/api";
+
+package api;
+
+service Nameserver {
+    rpc Status (NameserverHealthReq) returns (NameserverHealthResp) {}
+    rpc GetRecord (NameserverGetRecordReq) returns (NameserverGetRecordResp) {}
+    rpc CreateRecord (NameserverCreateRecordReq) returns (NameserverCreateRecordResp) {}
+    rpc DeleteRecord (NameserverDeleteRecordReq) returns (NameserverDeleteRecordResp) {}
+}
+
+message NameserverHealthReq {
+
+}
+
+message NameserverHealthResp {
+    bool Status = 1;
+}
+
+message NameserverGetRecordReq {
+    string RecordKey   = 2;
+}
+
+message NameserverGetRecordResp {
+    string RecordKey = 1;
+    string RecordValue = 2;
+}
+
+message NameserverCreateRecordReq {
+    string RecordType  = 1;
+    string RecordKey   = 2;
+    string RecordValue = 3;
+    int32  RecordTTL   = 4; 
+    bool   OverWrite   = 5;
+}
+
+message NameserverCreateRecordResp {
+
+}
+
+message NameserverDeleteRecordReq {
+    string RecordKey   = 2;
+}
+
+message NameserverDeleteRecordResp {
+
+}
