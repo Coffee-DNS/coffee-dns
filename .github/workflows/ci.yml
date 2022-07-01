@@ -238,7 +238,7 @@ jobs:
       - name: Cache Container Image
         uses: observiq/action-docker-layer-caching@main
         with:
-          filter: reference=ghcr.io/coffee-dns/discovery-*:${{ env.GITHUB_SHA_SHORT }}
+          filter: reference=ghcr.io/coffee-dns/*:${{ env.GITHUB_SHA_SHORT }}
       - name: Test GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
@@ -306,6 +306,12 @@ jobs:
     runs-on: "ubuntu-20.04"
     needs:
       - scan-go-licenses
+    strategy:
+      matrix:
+        service:
+          - controller
+          - discovery
+          - nameserver
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -315,33 +321,31 @@ jobs:
         uses: observiq/action-docker-layer-caching@main
         with:
           skip-save: true
-          filter: reference=ghcr.io/coffee-dns/discovery-*:${{ env.GITHUB_SHA_SHORT }}
-
+          filter: reference=ghcr.io/coffee-dns/${{ matrix.service }}-*:${{ env.GITHUB_SHA_SHORT }}
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Push Container Images
         run: |
           commit_tag=$(git rev-parse --short HEAD)
 
-          docker tag ghcr.io/coffee-dns/discovery-amd64:${commit_tag} ghcr.io/coffee-dns/discovery-amd64:latest
-          docker tag ghcr.io/coffee-dns/discovery-arm64:${commit_tag} ghcr.io/coffee-dns/discovery-arm64:latest
+          docker tag ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag} ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest
+          docker tag ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag} ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest
 
-          docker push ghcr.io/coffee-dns/discovery-amd64:${commit_tag}
-          docker push ghcr.io/coffee-dns/discovery-arm64:${commit_tag}
-          docker push ghcr.io/coffee-dns/discovery-amd64:latest
-          docker push ghcr.io/coffee-dns/discovery-arm64:latest
+          docker push ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag}
+          docker push ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag}
+          docker push ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest
+          docker push ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest
 
-          docker manifest create "ghcr.io/coffee-dns/discovery:${commit_tag}" \
-                  "ghcr.io/coffee-dns/discovery-amd64:${commit_tag}" \
-                  "ghcr.io/coffee-dns/discovery-arm64:${commit_tag}"
-          docker manifest create "ghcr.io/coffee-dns/discovery:latest" \
-                  "ghcr.io/coffee-dns/discovery-amd64:latest" \
-                  "ghcr.io/coffee-dns/discovery-arm64:latest"
+          docker manifest create "ghcr.io/coffee-dns/${{ matrix.service }}:${commit_tag}" \
+                  "ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag}" \
+                  "ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag}"
+          docker manifest create "ghcr.io/coffee-dns/${{ matrix.service }}:latest" \
+                  "ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest" \
+                  "ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest"
 
-          docker manifest push "ghcr.io/coffee-dns/discovery:${commit_tag}"
-          docker manifest push "ghcr.io/coffee-dns/discovery:latest"
+          docker manifest push "ghcr.io/coffee-dns/${{ matrix.service }}:${commit_tag}"
+          docker manifest push "ghcr.io/coffee-dns/${{ matrix.service }}:latest"
