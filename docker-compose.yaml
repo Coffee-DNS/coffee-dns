@@ -1,0 +1,19 @@
+# Run with `make run`
+version: '3'
+services:
+  controller:
+    image: ghcr.io/coffeedns/controller-amd64:latest
+    restart: always
+    ports:
+      - 9000:9000
+    environment:
+      - COFFEE_GRPC_PORT=9000
+      - COFFEE_LOG_LEVEL=trace
+  nameserver:
+    image: ghcr.io/coffeedns/nameserver-amd64:latest
+    restart: always
+    ports:
+      - "5053:5053/udp" # resolver
+      - "5555:5555/tcp" # grpc
+    environment:
+      - NAMESERVER_PORT=5053

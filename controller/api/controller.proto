@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option go_package = "github.com/coffee-dns/coffee-dns/controller/api";
+
+package api;
+
+service Controller {
+    rpc Status (ControllerHealthReq) returns (ControllerHealthResp) {}
+    rpc GetRecord (ControllerGetRecordReq) returns (ControllerGetRecordResp) {}
+    rpc CreateRecord (ControllerCreateRecordReq) returns (ControllerCreateRecordResp) {}
+    rpc DeleteRecord (ControllerDeleteRecordReq) returns (ControllerDeleteRecordResp) {}
+}
+
+message ControllerHealthReq {
+
+}
+
+message ControllerHealthResp {
+    bool Status = 1;
+}
+
+message ControllerGetRecordReq {
+    string RecordKey   = 2;
+}
+
+message ControllerGetRecordResp {
+    string RecordKey = 1;
+    string RecordValue = 2;
+}
+
+message ControllerCreateRecordReq {
+    string RecordType  = 1;
+    string RecordKey   = 2;
+    string RecordValue = 3;
+    int32  RecordTTL   = 4; 
+    bool   OverWrite   = 5;
+}
+
+message ControllerCreateRecordResp {
+    string RecordUpdateURI = 1;
+}
+
+message ControllerDeleteRecordReq {
+    string RecordKey   = 2;
+}
+
+message ControllerDeleteRecordResp {
+
+}

@@ -1,0 +1,235 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: coffee-dns
+  namespace: coffee
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: coffee-dns-discovery
+rules:
+  - apiGroups: ["", "apps", "batch"]
+    resources:
+      - pods
+      - namespaces
+      - replicasets
+      - nodes
+    verbs: ["get", "watch", "list"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: coffee-dns-discovery
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: coffee-dns-discovery
+subjects:
+  - kind: ServiceAccount
+    name: coffee-dns
+    namespace: coffee
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coffee-dns
+  namespace: coffee
+  labels:
+    app: coffee-dns
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+  minReadySeconds: 3
+  selector:
+    matchLabels:
+      app: coffee-dns
+  template:
+    metadata:
+      labels:
+        app: coffee-dns
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:  [coffee-dns]
+      serviceAccountName: coffee-dns
+      containers:
+      - name: controller
+        image: ghcr.io/coffeedns/controller:latest
+        ports:
+        - containerPort: 9000
+          name: grpc
+        env:
+        - name: COFFEE_GRPC_PORT
+          value: "9000"
+        - name: COFFEE_LOG_LEVEL
+          value: info
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        livenessProbe:
+          exec:
+            command:
+            - /controller
+            - status
+            - --endpoint
+            - :9000
+            - --tls=false
+          initialDelaySeconds: 5
+          periodSeconds: 20
+        readinessProbe:
+          exec:
+            command:
+            - /controller
+            - status
+            - --endpoint
+            - :9000
+            - --tls=false
+          initialDelaySeconds: 5
+          periodSeconds: 20
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 10",]
+      - name: nameserver
+        image: ghcr.io/coffeedns/nameserver:latest
+        ports:
+        - containerPort: 5555
+          name: grpc
+        - containerPort: 5053
+          name: resolver
+          protocol: UDP
+        env:
+        - name: NAMESERVER_PORT
+          value: "5053"
+        - name: CLOUD_DATASTORE_PROJECT_ID
+          value: team-it-webhosting
+        - name: CLOUD_DATASTORE_KIND
+          value: "Record"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        livenessProbe:
+          exec:
+            command:
+            - /nameserver
+            - status
+            - --endpoint
+            - localhost:5555
+            - --tls=false
+          initialDelaySeconds: 5
+          periodSeconds: 20
+        readinessProbe:
+          exec:
+            command:
+            - /nameserver
+            - status
+            - --endpoint
+            - localhost:5555
+            - --tls=false
+          initialDelaySeconds: 5
+          periodSeconds: 20
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 10",]
+      - name: discovery 
+        image: ghcr.io/coffeedns/discovery:latest
+        env:
+        - name: COFFEE_LOG_LEVEL
+          value: info
+        ports:
+        - containerPort: 8080
+          name: http
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 10",]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: coffee-dns
+  namespace: coffee
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: coffee-dns
+  minReplicas: 1
+  maxReplicas: 1
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coffee-dns
+  namespace: coffee
+  labels:
+    app: coffee-dns
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9000
+    targetPort: 9000
+    protocol: TCP
+    name: controller
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: discovery
+  - port: 5555
+    targetPort: 5555
+    protocol: TCP
+    name: grpc
+  selector:
+    app: coffee-dns
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coffee-dns-nameserver
+  namespace: coffee
+  labels:
+    app: coffee-dns
+spec:
+  type: NodePort
+  ports:
+  - port: 5053
+    targetPort: 5053
+    nodePort: 30053
+    protocol: UDP
+    name: dns
+  selector:
+    app: coffee-dns
