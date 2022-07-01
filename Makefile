@@ -8,6 +8,7 @@ install-tools:
 	cd internal/tools && go install github.com/securego/gosec/v2/cmd/gosec
 	cd internal/tools && go install golang.org/x/tools/cmd/goimports
 	cd internal/tools && go install honnef.co/go/tools/cmd/staticcheck
+	cd internal/tools && go install github.com/uw-labs/lichen
 
 .PHONY: gomoddownload
 gomoddownload:
