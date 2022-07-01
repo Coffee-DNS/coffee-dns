@@ -189,7 +189,7 @@ jobs:
           key: go-pkg-mod-${{ runner.os }}-${{ hashFiles('**/go.mod', '**/go.sum') }}
       - run: make test
 
-  build:
+  build-container-images:
     runs-on: "ubuntu-20.04"
     needs:
       - setup-environment
@@ -268,7 +268,7 @@ jobs:
   scan-go-licenses:
     runs-on: "ubuntu-20.04"
     needs:
-      - build
+      - build-container-images
     strategy:
       matrix:
         service:
