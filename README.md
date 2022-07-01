@@ -3,3 +3,4 @@
 # Coffee DNS
 
 [![CI](https://github.com/Coffee-DNS/coffee-dns/actions/workflows/ci.yml/badge.svg)](https://github.com/Coffee-DNS/coffee-dns/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
