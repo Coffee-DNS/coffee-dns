@@ -79,7 +79,7 @@ lint:
 
 .PHONY: gosec
 gosec:
-	gosec ./...
+	gosec -exclude-dir internal/tools ./...
 
 .PHONY: staticcheck
 staticcheck:
