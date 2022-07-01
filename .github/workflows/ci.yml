@@ -178,6 +178,7 @@ jobs:
       - vet
       - lint
       - secure
+      - misspell
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
