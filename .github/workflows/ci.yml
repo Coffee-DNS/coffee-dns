@@ -249,19 +249,19 @@ jobs:
       - name: Upload Controller Binaries
         uses: actions/upload-artifact@v3
         with:
-          name: build-${{ env.GITHUB_SHA }}
+          name: controller-${{ env.GITHUB_SHA }}
           path: dist/controller_**/app
           retention-days: 1
       - name: Upload Discovery Binaries
         uses: actions/upload-artifact@v3
         with:
-          name: build-${{ env.GITHUB_SHA }}
+          name: discovery-${{ env.GITHUB_SHA }}
           path: dist/discovery_**/app
           retention-days: 1
       - name: Upload Nameserver Binaries
         uses: actions/upload-artifact@v3
         with:
-          name: build-${{ env.GITHUB_SHA }}
+          name: nameserver-${{ env.GITHUB_SHA }}
           path: dist/nameserver_**/app
           retention-days: 1
 
