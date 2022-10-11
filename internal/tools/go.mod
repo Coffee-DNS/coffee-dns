@@ -4,15 +4,15 @@ go 1.18
 
 require (
 	github.com/client9/misspell v0.3.4
-	github.com/mgechev/revive v1.2.1
+	github.com/mgechev/revive v1.2.4
 	github.com/securego/gosec/v2 v2.13.1
 	github.com/uw-labs/lichen v0.1.7
 	honnef.co/go/tools v0.3.3
 )
 
 require (
-	github.com/BurntSushi/toml v1.1.0 // indirect
-	github.com/chavacava/garif v0.0.0-20220316182200-5cad0b5181d4 // indirect
+	github.com/BurntSushi/toml v1.2.0 // indirect
+	github.com/chavacava/garif v0.0.0-20220630083739-93517212f375 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fatih/structtag v1.2.0 // indirect
