@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/client9/misspell v0.3.4
 	github.com/mgechev/revive v1.2.1
-	github.com/securego/gosec/v2 v2.13.1
+	github.com/securego/gosec/v2 v2.14.0
 	github.com/uw-labs/lichen v0.1.7
 	honnef.co/go/tools v0.3.3
 )
@@ -18,7 +18,7 @@ require (
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/google/licenseclassifier v0.0.0-20201113175434-78a70215ca36 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/gookit/color v1.5.1 // indirect
+	github.com/gookit/color v1.5.2 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
