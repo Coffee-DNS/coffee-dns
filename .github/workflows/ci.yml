@@ -204,10 +204,6 @@ jobs:
           sudo chmod +x protoc-gen-go-grpc && sudo mv protoc-gen-go-grpc /usr/bin/protoc-gen-go-grpc
       - name: Set Image Tag
         run: echo "GITHUB_SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-      - name: Cache Container Image
-        uses: observiq/action-docker-layer-caching@main
-        with:
-          filter: reference=ghcr.io/coffee-dns/*:${{ env.GITHUB_SHA_SHORT }}
       - name: Test GoReleaser
         uses: goreleaser/goreleaser-action@v3
         with:
@@ -215,106 +211,56 @@ jobs:
           args: release --skip-publish --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_GITHUB_TOKEN }}
-      - name: Upload Controller Binaries
-        uses: actions/upload-artifact@v3
-        with:
-          name: controller-${{ env.GITHUB_SHA }}
-          path: dist/controller_**/app
-          retention-days: 1
-      - name: Upload Discovery Binaries
-        uses: actions/upload-artifact@v3
-        with:
-          name: discovery-${{ env.GITHUB_SHA }}
-          path: dist/discovery_**/app
-          retention-days: 1
-      - name: Upload Nameserver Binaries
-        uses: actions/upload-artifact@v3
-        with:
-          name: nameserver-${{ env.GITHUB_SHA }}
-          path: dist/nameserver_**/app
-          retention-days: 1
-
-  scan-go-licenses:
-    runs-on: "ubuntu-20.04"
-    needs:
-      - build-container-images
-    strategy:
-      matrix:
-        service:
-          - controller
-          - discovery
-          - nameserver
-    steps:
-      - name: Check out source code
-        uses: actions/checkout@v3
-      - name: Set up Go
-        uses: actions/setup-go@v4.0.1
-        with:
-          go-version: "1.20.8"
-      - name: Setup Go Environment
-        run: |
-          echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
-          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-      - name: Cache Tools
-        id: tool-cache
-        uses: actions/cache@v3
-        with:
-          path: /home/runner/go/bin
-          key: tools-${{ runner.os }}-${{ hashFiles('./internal/tools/go.mod') }}
-      - uses: actions/download-artifact@v3
-        with:
-          name: ${{ matrix.service }}-${{ env.GITHUB_SHA }}
-          path: dist/
       - name: Scan Binaries
         run: |
           find dist/*/app | xargs -I{} chmod +x {}
           lichen --config=./license.yaml $(find dist/*/app | xargs)
 
-  push-container-image:
-    if: github.ref == 'refs/heads/main'
-    runs-on: "ubuntu-20.04"
-    needs:
-      - scan-go-licenses
-    strategy:
-      matrix:
-        service:
-          - controller
-          - discovery
-          - nameserver
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-      - name: Set Image Tag
-        run: echo "GITHUB_SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-      - name: Cache Container Image
-        uses: observiq/action-docker-layer-caching@main
-        with:
-          skip-save: true
-          filter: reference=ghcr.io/coffee-dns/${{ matrix.service }}-*:${{ env.GITHUB_SHA_SHORT }}
-      - name: Log in to the Container registry
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push Container Images
-        run: |
-          commit_tag=$(git rev-parse --short HEAD)
+  # push-container-image:
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: "ubuntu-20.04"
+  #   needs:
+  #     - scan-go-licenses
+  #   strategy:
+  #     matrix:
+  #       service:
+  #         - controller
+  #         - discovery
+  #         - nameserver
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v3
+  #     - name: Set Image Tag
+  #       run: echo "GITHUB_SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+  #     - name: Cache Container Image
+  #       uses: observiq/action-docker-layer-caching@main
+  #       with:
+  #         skip-save: true
+  #         filter: reference=ghcr.io/coffee-dns/${{ matrix.service }}-*:${{ env.GITHUB_SHA_SHORT }}
+  #     - name: Log in to the Container registry
+  #       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Push Container Images
+  #       run: |
+  #         commit_tag=$(git rev-parse --short HEAD)
 
-          docker tag ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag} ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest
-          docker tag ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag} ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest
+  #         docker tag ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag} ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest
+  #         docker tag ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag} ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest
 
-          docker push ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag}
-          docker push ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag}
-          docker push ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest
-          docker push ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest
+  #         docker push ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag}
+  #         docker push ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag}
+  #         docker push ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest
+  #         docker push ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest
 
-          docker manifest create "ghcr.io/coffee-dns/${{ matrix.service }}:${commit_tag}" \
-                  "ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag}" \
-                  "ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag}"
-          docker manifest create "ghcr.io/coffee-dns/${{ matrix.service }}:latest" \
-                  "ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest" \
-                  "ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest"
+  #         docker manifest create "ghcr.io/coffee-dns/${{ matrix.service }}:${commit_tag}" \
+  #                 "ghcr.io/coffee-dns/${{ matrix.service }}-amd64:${commit_tag}" \
+  #                 "ghcr.io/coffee-dns/${{ matrix.service }}-arm64:${commit_tag}"
+  #         docker manifest create "ghcr.io/coffee-dns/${{ matrix.service }}:latest" \
+  #                 "ghcr.io/coffee-dns/${{ matrix.service }}-amd64:latest" \
+  #                 "ghcr.io/coffee-dns/${{ matrix.service }}-arm64:latest"
 
-          docker manifest push "ghcr.io/coffee-dns/${{ matrix.service }}:${commit_tag}"
-          docker manifest push "ghcr.io/coffee-dns/${{ matrix.service }}:latest"
+  #         docker manifest push "ghcr.io/coffee-dns/${{ matrix.service }}:${commit_tag}"
+  #         docker manifest push "ghcr.io/coffee-dns/${{ matrix.service }}:latest"
