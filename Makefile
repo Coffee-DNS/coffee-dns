@@ -78,10 +78,6 @@ misspell-fix:
 lint:
 	revive -config .revive.toml -formatter friendly ./...
 
-.PHONY: gosec
-gosec:
-	gosec -exclude-dir internal/tools ./...
-
 .PHONY: staticcheck
 staticcheck:
 	staticcheck ./...
