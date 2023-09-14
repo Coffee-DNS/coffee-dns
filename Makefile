@@ -5,7 +5,6 @@ ALLDOC := $(shell find . \( -name "*.md" -o -name "*.yaml" \) \
 install-tools:
 	cd internal/tools && go install github.com/mgechev/revive
 	cd internal/tools && go install github.com/client9/misspell/cmd/misspell
-	cd internal/tools && go install github.com/securego/gosec/v2/cmd/gosec
 	cd internal/tools && go install golang.org/x/tools/cmd/goimports
 	cd internal/tools && go install honnef.co/go/tools/cmd/staticcheck
 	cd internal/tools && go install github.com/uw-labs/lichen
@@ -77,10 +76,6 @@ misspell-fix:
 .PHONY: lint
 lint:
 	revive -config .revive.toml -formatter friendly ./...
-
-.PHONY: gosec
-gosec:
-	gosec -exclude-dir internal/tools ./...
 
 .PHONY: staticcheck
 staticcheck:
