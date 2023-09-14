@@ -21,20 +21,11 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-      - name: Cache Go
-        id: module-cache
-        uses: actions/cache@v3
-        with:
-          path: /home/runner/go/pkg/mod
-          key: go-pkg-mod-${{ runner.os }}-${{ hashFiles('**/go.mod', '**/go.sum') }}
-      - name: Install dependencies
-        if: steps.module-cache.outputs.cache-hit != 'true'
-        run: make gomoddownload
       - name: Cache Tools
         id: tool-cache
         uses: actions/cache@v3
@@ -55,17 +46,11 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-      - name: Cache Go
-        id: module-cache
-        uses: actions/cache@v3
-        with:
-          path: /home/runner/go/pkg/mod
-          key: go-pkg-mod-${{ runner.os }}-${{ hashFiles('**/go.mod', '**/go.sum') }}
       - name: Vet
         run: go vet ./...
 
@@ -79,7 +64,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
@@ -103,7 +88,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
@@ -128,7 +113,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
@@ -152,7 +137,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
@@ -176,17 +161,11 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-      - name: Cache Go
-        id: module-cache
-        uses: actions/cache@v3
-        with:
-          path: /home/runner/go/pkg/mod
-          key: go-pkg-mod-${{ runner.os }}-${{ hashFiles('**/go.mod', '**/go.sum') }}
       - run: make test
 
   build-container-images:
@@ -205,17 +184,11 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-      - name: Cache Go
-        id: module-cache
-        uses: actions/cache@v3
-        with:
-          path: /home/runner/go/pkg/mod
-          key: go-pkg-mod-${{ runner.os }}-${{ hashFiles('**/go.mod', '**/go.sum') }}
       - name: Cache Tools
         id: tool-cache
         uses: actions/cache@v3
@@ -281,7 +254,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
-          go-version: 1.18
+          go-version: "1.20.8"
       - name: Setup Go Environment
         run: |
           echo "GOPATH=$(go env GOPATH)" >> $GITHUB_ENV
