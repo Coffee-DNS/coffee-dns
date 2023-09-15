@@ -205,7 +205,7 @@ jobs:
       - name: Set Image Tag
         run: echo "GITHUB_SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - name: Test GoReleaser
-        uses: goreleaser/goreleaser-action@v3
+        uses: goreleaser/goreleaser-action@v5
         with:
           version: "v1.20.0"
           args: release --skip-publish --rm-dist --snapshot
