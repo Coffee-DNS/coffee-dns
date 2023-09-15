@@ -207,8 +207,8 @@ jobs:
       - name: Test GoReleaser
         uses: goreleaser/goreleaser-action@v3
         with:
-          version: v1.9.0
-          args: release --skip-publish --rm-dist
+          version: "v1.20.0"
+          args: release --skip-publish --rm-dist --snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_GITHUB_TOKEN }}
       - name: Scan Binaries
