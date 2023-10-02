@@ -17,7 +17,7 @@ jobs:
     runs-on: "ubuntu-20.04"
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -42,7 +42,7 @@ jobs:
       - setup-environment
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -60,7 +60,7 @@ jobs:
       - setup-environment
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -80,7 +80,7 @@ jobs:
       - setup-environment
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -105,7 +105,7 @@ jobs:
       - setup-environment
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -129,7 +129,7 @@ jobs:
       - setup-environment
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -153,7 +153,7 @@ jobs:
       - setup-environment
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -176,7 +176,7 @@ jobs:
       - staticcheck
     steps:
       - name: Check out source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4.0.1
         with:
@@ -229,7 +229,7 @@ jobs:
   #         - nameserver
   #   steps:
   #     - name: Checkout Repo
-  #       uses: actions/checkout@v3
+  #       uses: actions/checkout@v4
   #     - name: Set Image Tag
   #       run: echo "GITHUB_SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
   #     - name: Cache Container Image
