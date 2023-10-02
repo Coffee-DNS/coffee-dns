@@ -8,7 +8,7 @@ require (
 	github.com/miekg/dns v1.1.56
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.0
-	github.com/spf13/cobra v1.6.1
+	github.com/spf13/cobra v1.7.0
 	google.golang.org/grpc v1.58.2
 	google.golang.org/protobuf v1.31.0
 	k8s.io/api v0.28.2
@@ -44,7 +44,7 @@ require (
 	github.com/googleapis/enterprise-certificate-proxy v0.2.4 // indirect
 	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
 	github.com/imdario/mergo v0.3.6 // indirect
-	github.com/inconshreveable/mousetrap v1.0.1 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
