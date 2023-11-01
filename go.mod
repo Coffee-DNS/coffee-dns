@@ -3,7 +3,7 @@ module github.com/coffee-dns/coffee-dns
 go 1.18
 
 require (
-	cloud.google.com/go/datastore v1.14.0
+	cloud.google.com/go/datastore v1.15.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/miekg/dns v1.1.56
 	github.com/pkg/errors v0.9.1
