@@ -2,8 +2,6 @@ module github.com/coffee-dns/coffee-dns
 
 go 1.22.0
 
-toolchain go1.22.3
-
 require (
 	cloud.google.com/go/datastore v1.15.0
 	github.com/gin-gonic/gin v1.9.1
