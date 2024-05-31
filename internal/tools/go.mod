@@ -7,7 +7,7 @@ require (
 	github.com/mgechev/revive v1.2.1
 	github.com/uw-labs/lichen v0.1.7
 	golang.org/x/tools v0.21.0
-	honnef.co/go/tools v0.4.6
+	honnef.co/go/tools v0.4.7
 )
 
 require (
