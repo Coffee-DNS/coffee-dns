@@ -6,6 +6,10 @@ updates:
       interval: "monthly"
     labels:
       - "dependencies"
+    groups:
+      otel:
+        patterns:
+          - "k8s.io/*"
   - package-ecosystem: "gomod"
     directory: "/internal/tools"
     schedule:
