@@ -7,7 +7,7 @@ updates:
     labels:
       - "dependencies"
     groups:
-      otel:
+      k8s:
         patterns:
           - "k8s.io/*"
   - package-ecosystem: "gomod"
