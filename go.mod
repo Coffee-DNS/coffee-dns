@@ -1,6 +1,6 @@
 module github.com/coffee-dns/coffee-dns
 
-go 1.18
+go 1.24
 
 require (
 	cloud.google.com/go/datastore v1.15.0
